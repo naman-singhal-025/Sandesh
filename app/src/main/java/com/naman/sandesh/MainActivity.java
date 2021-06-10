@@ -1,16 +1,16 @@
 package com.naman.sandesh;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Switch;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.naman.sandesh.Adapters.FragmentsAdapter;
 import com.naman.sandesh.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
@@ -25,6 +25,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         auth  = FirebaseAuth.getInstance();
+
+        binding.viewPager.setAdapter(new FragmentsAdapter(getSupportFragmentManager()));
+        binding.tabLayout.setupWithViewPager(binding.viewPager);
     }
 
     @Override
@@ -39,12 +42,19 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId())
         {
             case R.id.settings:
+                Intent intent3  = new Intent(MainActivity.this,SettingActivity.class);
+                startActivity(intent3);
             break;
             case R.id.logout:
             auth.signOut();
             Intent intent =  new Intent(MainActivity.this,SignIn.class);
             startActivity(intent);
             break;
+
+            case R.id.groupChat:
+                Intent intent2 =  new Intent(MainActivity.this,GroupChatActivity.class);
+                startActivity(intent2);
+                break;
         }
         return true;
     }

@@ -7,14 +7,16 @@ public class Users {
     String userId;
     String password;
     String lastMessage;
+    String status;
 
-    public Users(String profilePic, String userName, String mail, String userId, String password, String lastMessage) {
+    public Users(String profilePic, String userName, String mail, String userId, String password, String lastMessage, String status) {
         this.profilePic = profilePic;
         this.userName = userName;
         this.mail = mail;
         this.userId = userId;
         this.password = password;
         this.lastMessage = lastMessage;
+        this.status = status;
     }
 
     public Users() {
@@ -26,6 +28,14 @@ public class Users {
         this.userName = userName;
         this.mail = mail;
         this.password = password;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getProfilePic() {
@@ -75,4 +85,5 @@ public class Users {
     public void setLastMessage(String lastMessage) {
         this.lastMessage = lastMessage;
     }
+
 }

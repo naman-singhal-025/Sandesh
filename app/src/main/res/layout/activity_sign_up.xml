@@ -111,12 +111,5 @@
                 app:cornerRadius="140dp" />
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/signUp_phone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:text="Sign Up with phone"
-            android:textSize="18sp" />
     </LinearLayout>
 </LinearLayout>
