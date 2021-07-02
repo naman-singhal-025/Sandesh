@@ -26,6 +26,11 @@ public class ChatDetailActivity extends AppCompatActivity {
     ActivityChatDetailBinding binding;
     FirebaseDatabase database;
     FirebaseAuth auth;
+    private String senderRoom;
+    private String receiverRoom;
+    private ArrayList<MessagesModel> messagesModels;
+    private ChatAdapter chatAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,9 +44,11 @@ public class ChatDetailActivity extends AppCompatActivity {
 
         final String senderId = auth.getUid();
         String recieveId = getIntent().getStringExtra("userId");
-        String userName  = getIntent().getStringExtra("userName");
-        String profilePic  = getIntent().getStringExtra("profilePic");
+        String userName = getIntent().getStringExtra("userName");
+        String profilePic = getIntent().getStringExtra("profilePic");
 
+        senderRoom = senderId + recieveId;
+        receiverRoom = recieveId + senderId;
 
         binding.userName2.setText(userName);
         Picasso.get().load(profilePic).placeholder(R.drawable.avatar).into(binding.profileImage);
@@ -49,51 +56,68 @@ public class ChatDetailActivity extends AppCompatActivity {
         binding.backArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ChatDetailActivity.this,MainActivity.class);
+                Intent intent = new Intent(ChatDetailActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });
 
-        final ArrayList<MessagesModel> messagesModels = new ArrayList<>();
+        messagesModels = new ArrayList<>();
 
-        final ChatAdapter chatAdapter = new ChatAdapter(messagesModels,this , recieveId);
+        chatAdapter = new ChatAdapter(messagesModels, this, recieveId);
         binding.chatRecyclerView.setAdapter(chatAdapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        layoutManager.setStackFromEnd(true);
         binding.chatRecyclerView.setLayoutManager(layoutManager);
+        binding.chatRecyclerView.smoothScrollToPosition(chatAdapter.getItemCount());
+        RetrieveUserInfo();
+
+//        database.getReference().child("chats")
+//                .child(senderRoom)
+//                .addValueEventListener(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                        messagesModels.clear();
+//                        for(DataSnapshot snapshot1 : snapshot.getChildren())
+//                        {
+//                            MessagesModel model  = snapshot1.getValue(MessagesModel.class);
+//                            model.setMessageId(snapshot1.getKey());
+//                            messagesModels.add(model);
+//                        }
+//
+//                    }
 
         binding.send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String message = binding.etMessage.getText().toString();
-                final MessagesModel model = new MessagesModel(senderId,message);
+                final MessagesModel model = new MessagesModel(senderId, message);
                 model.setTimestamp(new Date().getTime());
                 binding.etMessage.setText("");
 
-                final  String senderRoom = senderId+recieveId;
-                final String receiverRoom = recieveId+senderId;
+//                final  String senderRoom = senderId+recieveId;
+//                final String receiverRoom = recieveId+senderId;
 
 
-                database.getReference().child("chats")
-                        .child(senderRoom)
-                        .addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                messagesModels.clear();
-                                for(DataSnapshot snapshot1 : snapshot.getChildren())
-                                {
-                                    MessagesModel model  = snapshot1.getValue(MessagesModel.class);
-                                    model.setMessageId(snapshot1.getKey());
-                                    messagesModels.add(model);
-                                }
-                                chatAdapter.notifyDataSetChanged();
-
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-
-                            }
-                        });
+//                database.getReference().child("chats")
+//                        .child(senderRoom)
+//                        .addValueEventListener(new ValueEventListener() {
+//                            @Override
+//                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                                messagesModels.clear();
+//                                for (DataSnapshot snapshot1 : snapshot.getChildren()) {
+//                                    MessagesModel model = snapshot1.getValue(MessagesModel.class);
+//                                    model.setMessageId(snapshot1.getKey());
+//                                    messagesModels.add(model);
+//                                }
+//                                chatAdapter.notifyDataSetChanged();
+//
+//                            }
+//
+//                            @Override
+//                            public void onCancelled(@NonNull DatabaseError error) {
+//
+//                            }
+//                        });
 
                 database.getReference().child("chats")
                         .child(senderRoom).push().setValue(model)
@@ -104,15 +128,39 @@ public class ChatDetailActivity extends AppCompatActivity {
                                         .child(receiverRoom).push()
                                         .setValue(model)
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
 
-                                    }
-                                });
+                                            }
+                                        });
                             }
                         });
 
             }
         });
     }
+
+    public void RetrieveUserInfo() {
+        database.getReference().child("chats")
+                .child(senderRoom)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        messagesModels.clear();
+                        for (DataSnapshot snapshot1 : snapshot.getChildren()) {
+                            MessagesModel model = snapshot1.getValue(MessagesModel.class);
+                            model.setMessageId(snapshot1.getKey());
+                            messagesModels.add(model);
+                        }
+                        chatAdapter.notifyDataSetChanged();
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+    }
 }
+

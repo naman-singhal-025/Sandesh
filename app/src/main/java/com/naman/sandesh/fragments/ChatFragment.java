@@ -59,6 +59,21 @@ public class ChatFragment extends Fragment {
                 }
                 adapter.notifyDataSetChanged();
             }
+//        database.getReference().orderByChild("Users").limitToLast(1).addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+////                list.clear();
+////                for(DataSnapshot dataSnapshot: snapshot.getChildren()){
+//                    Users users = snapshot.getValue(Users.class);
+//                    users.setUserId(snapshot.getKey());
+//                    if(!users.getUserId().equals(FirebaseAuth.getInstance().getUid()))
+//                    {
+//                        list.add(users);
+//                    }
+//
+////                }
+//                adapter.notifyDataSetChanged();
+//            }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {

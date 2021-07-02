@@ -80,6 +80,7 @@ public class SignIn extends AppCompatActivity {
                                 progressDialog.dismiss();
                                 if(task.isSuccessful())
                                 {
+
                                     Intent intent = new Intent(SignIn.this, MainActivity.class);
                                     startActivity(intent);
                                 }
