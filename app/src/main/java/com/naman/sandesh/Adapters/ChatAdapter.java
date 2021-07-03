@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
+import com.naman.sandesh.Crypt.Decode;
 import com.naman.sandesh.R;
 import com.naman.sandesh.models.MessagesModel;
 
@@ -71,6 +72,7 @@ public class ChatAdapter extends RecyclerView.Adapter{
         MessagesModel messagesModel = messagesModels.get(position);
 
 
+
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
@@ -99,11 +101,11 @@ public class ChatAdapter extends RecyclerView.Adapter{
         });
         if(holder.getClass() == SenderViewHolder.class)
         {
-            ((SenderViewHolder)holder).senderMsg.setText(messagesModel.getMessage());
+            ((SenderViewHolder)holder).senderMsg.setText(Decode.decode(messagesModel.getMessage()));
         }
         else
         {
-            ((ReceiverViewHolder)holder).receiverMsg.setText(messagesModel.getMessage());
+            ((ReceiverViewHolder)holder).receiverMsg.setText(Decode.decode(messagesModel.getMessage()));
         }
     }
 
