@@ -2,7 +2,6 @@ package com.naman.sandesh;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -19,7 +18,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.naman.sandesh.Adapters.ChatAdapter;
-import com.naman.sandesh.Crypt.Decode;
 import com.naman.sandesh.Crypt.Encode;
 import com.naman.sandesh.databinding.ActivityChatDetailBinding;
 import com.naman.sandesh.models.MessagesModel;
@@ -106,13 +104,16 @@ public class ChatDetailActivity extends AppCompatActivity {
                         {
                             case R.id.java:
                                 String message = binding.etMessage.getText().toString();
-                                final MessagesModel model1 = new MessagesModel(senderId, message);
                                 String Emessage = Encode.encode(message);
-                                Log.d("mainhoon", Decode.decode(Emessage));
+//                                try {
+//                                    Emessage = EncodeDecodeAES.bytesToHex(EncodeDecodeAES.encrypt(Emessage));
+//                                } catch (Exception e) {
+//                                    e.printStackTrace();
+//                                }
+//                                Log.d("mainhoon", Decode.decode(Emessage));
                                 final MessagesModel model = new MessagesModel(senderId, Emessage);
 
                                 model.setTimestamp(new Date().getTime());
-                                model1.setTimestamp(new Date().getTime());
                                 binding.etMessage.setText("");
                                 database.getReference().child("chats")
                                         .child(senderRoom).push().setValue(model)

@@ -101,11 +101,28 @@ public class ChatAdapter extends RecyclerView.Adapter{
         });
         if(holder.getClass() == SenderViewHolder.class)
         {
-            ((SenderViewHolder)holder).senderMsg.setText(Decode.decode(messagesModel.getMessage()));
+            String decrypted = Decode.decode(messagesModel.getMessage()) ;
+            ((SenderViewHolder)holder).senderMsg.setText((decrypted));
+
+//            try {
+//                String decrypted = EncodeDecodeAES.bytesToHex(EncodeDecodeAES.decrypt(messagesModel.getMessage())) ;
+//                ((SenderViewHolder)holder).senderMsg.setText((decrypted));
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
         }
         else
         {
-            ((ReceiverViewHolder)holder).receiverMsg.setText(Decode.decode(messagesModel.getMessage()));
+            String decrypted = Decode.decode(messagesModel.getMessage());
+            ((ReceiverViewHolder)holder).receiverMsg.setText((decrypted));
+//            try {
+//                String decrypted = new String(EncodeDecodeAES.decrypt(messagesModel.getMessage())) ;
+//                ((ReceiverViewHolder)holder).receiverMsg.setText(Decode.decode(decrypted));
+//                Log.d("mainhoon", Decode.decode(decrypted));
+//
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
         }
     }
 

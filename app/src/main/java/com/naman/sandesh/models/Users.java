@@ -1,5 +1,7 @@
 package com.naman.sandesh.models;
 
+import com.naman.sandesh.Crypt.Decode;
+
 public class Users {
     String profilePic;
     String userName;
@@ -83,7 +85,7 @@ public class Users {
     }
 
     public void setLastMessage(String lastMessage) {
-        this.lastMessage = lastMessage;
+        this.lastMessage = Decode.decode(lastMessage);
     }
 
 }

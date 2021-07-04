@@ -17,6 +17,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.naman.sandesh.ChatDetailActivity;
+import com.naman.sandesh.Crypt.Decode;
 import com.naman.sandesh.R;
 import com.naman.sandesh.models.Users;
 import com.squareup.picasso.Picasso;
@@ -57,8 +58,10 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder>{
                 {
                     for(DataSnapshot snapshot1 : snapshot.getChildren())
                     {
-                        holder.lastMessage.setText(snapshot1.child("message")
-                                .getValue().toString());
+                        String encrypted = snapshot1.child("message")
+                                .getValue().toString();
+                        String decrypted = Decode.decode(encrypted);
+                        holder.lastMessage.setText(decrypted);
                     }
                 }
             }

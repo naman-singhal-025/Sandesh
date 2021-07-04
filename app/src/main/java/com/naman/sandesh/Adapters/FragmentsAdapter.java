@@ -6,9 +6,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.naman.sandesh.fragments.CallsFragment;
 import com.naman.sandesh.fragments.ChatFragment;
-import com.naman.sandesh.fragments.StatusFragment;
+import com.naman.sandesh.fragments.GameFragment;
 
 public class FragmentsAdapter extends FragmentPagerAdapter {
     public FragmentsAdapter(@NonNull FragmentManager fm) {
@@ -19,16 +18,15 @@ public class FragmentsAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         switch(position){
-            case 0: return new ChatFragment();
-            case 1: return new StatusFragment();
-            case 2: return new CallsFragment();
+//            case 0: return new ChatFragment();
+            case 1: return new GameFragment();
             default: return new ChatFragment();
         }
     }
 
     @Override
     public int getCount() {
-        return 3;
+        return 2;
     }
 
     @Nullable
@@ -41,13 +39,8 @@ public class FragmentsAdapter extends FragmentPagerAdapter {
         }
         if(position == 1)
         {
-            title = "STATUS";
+            title = "GAME";
         }
-        if(position == 2)
-        {
-            title = "CALLS";
-        }
-
         return title;
     }
 }

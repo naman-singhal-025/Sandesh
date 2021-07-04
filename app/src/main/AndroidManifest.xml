@@ -21,6 +21,32 @@
         </activity>
         <activity android:name=".SignUp" />
         <activity android:name=".MainActivity" />
+        <activity
+            android:name=".tictactoe.GameActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="landscape"
+            android:theme="@style/FullScreenTheme" />
+        <activity
+            android:name=".tictactoe.MenuActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="landscape"
+            android:theme="@style/FullScreenTheme" />
+        <activity
+            android:name=".tictactoe.AboutActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="landscape"
+            android:theme="@style/FullScreenTheme" />
+        <activity
+            android:name=".tictactoe.OnlineLoginActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/FullScreenTheme" />
+
+
+
+        <activity android:name=".tictactoe.OnlineGameActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="landscape"
+            android:theme="@style/FullScreenTheme"></activity>
     </application>
 
 </manifest>
