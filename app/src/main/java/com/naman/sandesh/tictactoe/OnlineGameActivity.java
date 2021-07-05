@@ -318,13 +318,19 @@ public class OnlineGameActivity extends AppCompatActivity {
 
 
     void ShowAlert(String Title){
-        AlertDialog.Builder b = new AlertDialog.Builder(this, R.style.Widget_AppCompat_Light_ActionBar);
+        AlertDialog.Builder b = new AlertDialog.Builder(this, R.style.Theme_AppCompat_DayNight_DarkActionBar);
         b.setTitle(Title)
                 .setMessage("Start a new game?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        ResetGame();
+                    }
+                })
                 .setNegativeButton("Menu", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), com.naman.sandesh.tictactoe.MenuActivity.class);
                         startActivity(intent);
                         finish();
                     }

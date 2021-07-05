@@ -23,27 +23,32 @@
         <activity android:name=".MainActivity" />
         <activity
             android:name=".tictactoe.GameActivity"
+            android:noHistory="true"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="landscape"
             android:theme="@style/FullScreenTheme" />
         <activity
             android:name=".tictactoe.MenuActivity"
+            android:noHistory="true"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="landscape"
             android:theme="@style/FullScreenTheme" />
         <activity
             android:name=".tictactoe.AboutActivity"
+            android:noHistory="true"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="landscape"
             android:theme="@style/FullScreenTheme" />
         <activity
             android:name=".tictactoe.OnlineLoginActivity"
+            android:noHistory="true"
             android:screenOrientation="landscape"
             android:theme="@style/FullScreenTheme" />
 
 
 
         <activity android:name=".tictactoe.OnlineGameActivity"
+            android:noHistory="true"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="landscape"
             android:theme="@style/FullScreenTheme"></activity>
